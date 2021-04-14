@@ -1,0 +1,37 @@
+<strong><h5 class="lead mb-3">Welcome {{name}} || <strong>{{userType}}</strong></h5></strong>
+
+{{#if tickets}}
+    <table class="table table-hover">
+  <thead>
+    <tr class="table-active">
+      <th scope="col">Ticket Number/ID</th>
+      <th scope="col">Ticket Title</th>
+      <th scope="col">Status</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Reported by</th>
+      <th scope="col">Assigned</th>
+      <th scope="col">When</th>
+      {{!-- <th scope="col"></th>
+      <th scope="col"></th> --}}
+    </tr>
+  </thead>
+  <tbody>
+      {{#each tickets}}
+        <tr class="taable-default">
+        <th scope="row"><a href="/tickets/{{_id}}">{{_id}}</a></th>
+        <td>{{title}}</td>
+        <td><span class="dash-status">{{status}}</span></td>
+        <td>{{priority}}</td>
+        <td>{{user}}</td>
+        <td>{{assignedTo}}</td>
+        <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
+        {{!-- <td></td>
+        <td></td> --}}
+        </tr>
+      {{/each}}
+  </tbody>
+</table>
+{{else}}
+<h6>You have not reported any bugs</h6>
+
+{{/if}}

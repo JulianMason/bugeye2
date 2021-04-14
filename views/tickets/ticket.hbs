@@ -1,0 +1,110 @@
+
+{{#ifEquals userType "Admin"}}
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ticket.title}}</h4><h6 class="card-title">{{ticket.priority}} Priority</h6>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <h6 class="card-subtitle mb-2 text-muted">Assigned to: <h6 class="card-subtitle mb-2">{{ticket.assignedTo}}</h6></h6>
+                </div>
+                <div class="col">
+                    <h6 class="card-subtitle mb-2 text-muted">Created by: <h6 class="card-subtitle mb-2">{{ticket.created_by}}</h6></h6>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <h6 class="card-subtitle mb-2 text-muted">Status:</h6><h6 class="card-subtitle mb-2 text-mute"> {{ticket.status}}</h6>
+                </div>
+                <div class="col">
+                    <h6 class="card-subtitle mb-2 text-muted">Mark as: <a href="#">Open |</a><a href="#"> Resolved |</a><a href="#"> Closed</a></h6>
+                </div>
+            </div>
+            <br>
+            <h6 class="card-subtitle mb-2 text-muted">Description:</h6>
+            <p class="card-text">{{ticket.description}}</p>
+            <div class="row">
+            <div class="col">
+                <h6 class="card-subtitle mb-2 text-muted">Mark as: <a href="/tickets/update/{{ticket._id}}"> Resolved</a> or <a href="/tickets/update/{{ticket._id}}"> Closed</a></h6>
+            </div>
+            <div class="col">
+                <h6 class="card-subtitle mb-2 text-muted"><a href="/tickets/delete/{{ticket._id}}">DELETE TICKET</a></h6>
+            </div>
+        </div>
+        </div>
+    </div>
+    {{else}}
+    <div class="card">
+    <div class="card-body">
+        <h4 class="card-title">{{ticket.title}}</h4><h6 class="card-title">{{ticket.priority}} Priority</h6>
+        <br>
+        <div class="row">
+            <div class="col">
+                <h6 class="card-subtitle mb-2 text-muted">Assigned to: <h6 class="card-subtitle mb-2">{{ticket.assignedTo}}</h6></h6>
+            </div>
+            <div class="col">
+                <h6 class="card-subtitle mb-2 text-muted">Status:</h6><h6 class="card-subtitle mb-2 text-mute"> {{ticket.status}}</h6>
+            </div>
+        </div>
+        <br>
+        
+        <br>
+        <h6 class="card-subtitle mb-2 text-muted">Description:</h6>
+        <p class="card-text">{{ticket.description}}</p>
+        
+        
+    </div>
+</div>
+
+{{/ifEquals}}
+<br>
+<br>
+<br>
+{{!-- Comments --}}
+<div class="card border-primary mb-3" style="">
+    <div class="card-header"><h3>COMMENTS</h3></div>
+    {{!-- console.log({{ticket._id}})
+    console.log({{comment.ticket_id}}) --}}
+    {{!-- {{#eq ticket._id comment.ticket_id}} --}}
+    ticket model: console.log({{ticket._id}})
+    {{#each comment}}
+    comment model: console.log({{ticket_id}})
+    {{!-- {{#eq ticket._id ticket_id}} --}}
+    console.log(loop: {{ticket_id}})
+    
+  <div class="card-body">
+    <h4 class="card-title">{{created_by}}</h4><h6> on {{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</h6>
+    <br>
+    <p class="card-text">{{comment}}</p>
+    <hr>
+  </div>
+  {{!-- {{/eq}} --}}
+  {{/each}}
+  <div class="card-body">
+    <form action="/tickets/post_comment" method="POST">
+  <fieldset>
+    <legend>Add Comment</legend>
+    <div class="form-group">
+      <label for="comment">Your comment</label>
+      <textarea class="form-control" id="comment" name="comment" rows="1"></textarea>
+    </div>
+    <div class="form-group">
+        <label hidden for="created_by">Created By</label>
+        <input hidden type="created_by" id="created_by" name="created_by" class="form-control" value="{{user.name}}" />
+    </div>
+    <div class="form-group">
+        <label hidden for="ticket_id">Ticket ID</label>
+        <input hidden type="ticket_id" id="ticket_id" name="ticket_id" class="form-control" value="{{ticket._id}}"/>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Post comment</button>
+            <a href="/dashboard" class="btn">Cancel</a>
+        </div>
+    </div>
+  </fieldset>
+    </form>
+  </div>
+  
+</div>
