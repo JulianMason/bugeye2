@@ -17,10 +17,6 @@ const CommentSchema = new mongoose.Schema({
         type: String,
         //required: true
     },
-    comment_timestamp: {
-        type: Date,
-        default: Date.now
-    },
     ticket_id: {
         type: String
     },
