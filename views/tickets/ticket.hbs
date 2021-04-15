@@ -6,32 +6,32 @@
             <br>
             <div class="row">
                 <div class="col">
-                    <h6 class="card-subtitle mb-2 text-muted">Assigned to: <h6 class="card-subtitle mb-2">{{ticket.assignedTo}}</h6></h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Status: <a class="card-subtitle mb-2"> {{ticket.status}}</a></h6>
                 </div>
                 <div class="col">
-                    <h6 class="card-subtitle mb-2 text-muted">Created by: <h6 class="card-subtitle mb-2">{{ticket.created_by}}</h6></h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Change Status <a href="/tickets/update/{{ticket._id}}"> Here</a></h6>
+                </div>
+                <div class="col">
+                    <h6 class="card-subtitle mb-2 text-muted"><a href="/tickets/delete/{{ticket._id}}">DELETE TICKET</a></h6>
                 </div>
             </div>
             <br>
+            <br>
             <div class="row">
                 <div class="col">
-                    <h6 class="card-subtitle mb-2 text-muted">Status:</h6><h6 class="card-subtitle mb-2 text-mute"> {{ticket.status}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Reported by: <h6 class="card-subtitle mb-2">{{ticket.created_by}}</h6></h6>
                 </div>
                 <div class="col">
-                    <h6 class="card-subtitle mb-2 text-muted">Mark as: <a href="#">Open |</a><a href="#"> Resolved |</a><a href="#"> Closed</a></h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Assigned to: <h6 class="card-subtitle mb-2">{{ticket.assignedTo}}</h6></h6>
+                </div>
+                <div class="col">
+
                 </div>
             </div>
             <br>
             <h6 class="card-subtitle mb-2 text-muted">Description:</h6>
             <p class="card-text">{{ticket.description}}</p>
-            <div class="row">
-            <div class="col">
-                <h6 class="card-subtitle mb-2 text-muted">Mark as: <a href="/tickets/update/{{ticket._id}}"> Resolved</a> or <a href="/tickets/update/{{ticket._id}}"> Closed</a></h6>
-            </div>
-            <div class="col">
-                <h6 class="card-subtitle mb-2 text-muted"><a href="/tickets/delete/{{ticket._id}}">DELETE TICKET</a></h6>
-            </div>
-        </div>
+            
         </div>
     </div>
     {{else}}

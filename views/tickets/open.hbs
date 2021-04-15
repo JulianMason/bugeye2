@@ -1,10 +1,10 @@
 
-<strong><h5 class="lead mb-3">Welcome, {{name}}</strong>
+<strong><h5 class="lead mb-3">Open Tickets</h5></strong>
 <br>
-<h5><strong>{{userType}}</strong></h5>
 
-
-    {{#ifEquals userType "Admin"}}
+{{#ifEquals userType "Admin"}}
+    {{#each ticketsAll}}
+        {{#ifEquals status "Open"}}
         <table class="table table-hover">
         <thead>
             <tr class="table-active">
@@ -20,7 +20,6 @@
             </tr>
         </thead>
         <tbody>
-            {{#each ticketsAll}}
                 <tr class="taable-default">
                 <th scope="row"><a href="/tickets/{{_id}}">{{_id}}</a></th>
                 <td>{{title}}</td>
@@ -32,11 +31,15 @@
                 {{!-- <td></td>
                 <td></td> --}}
                 </tr>
-            {{/each}}
         </tbody>
         </table>
-    {{else}}
-        {{#if tickets}}
+                
+        {{/ifEquals}}
+    {{/each}}
+{{else}}
+
+    {{#each tickets}}
+        {{#ifEquals status "Open"}}
         <table class="table table-hover">
         <thead>
             <tr class="table-active">
@@ -50,7 +53,6 @@
             </tr>
         </thead>
         <tbody>
-            {{#each tickets}}
                 <tr class="taable-default">
                 <th scope="row"><a href="/tickets/{{_id}}">{{_id}}</a></th>
                 <td>{{title}}</td>
@@ -60,12 +62,9 @@
                 {{!-- <td></td>
                 <td></td> --}}
                 </tr>
-            {{/each}}
         </tbody>
         </table>
-        {{else}}
-        <h6>You have not reported any bugs</h6>
-
-    
-        {{/if}}
         {{/ifEquals}}
+    {{/each}}
+
+{{/ifEquals}}

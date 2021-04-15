@@ -1,7 +1,6 @@
 <form action="/tickets/update/{{ticket._id}}" method="POST">
   <fieldset>
     <legend>Change status of ticket {{ticket._id}}</legend>
-    {{ticket.description}}
     <div class="form-group">
       <label for="title">Title</label>
       <input type="title" class="form-control" id="title" name="title" aria-describedby="emailHelp" placeholder="Enter title" value="{{ticket.title}}" disabled="">
@@ -17,7 +16,13 @@
         {{/select}}
       </select>
     </div>
-    <div class="form-group">
+     <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="/dashboard" class="btn">Cancel</a>
+        </div>
+    </div>
+    <div hidden class="form-group">
       <label for="tType">Type of bug</label>
       <select class="form-control" id="tType" name="tType" value="{{ticket.tType}}" disabled="">
         {{#select ticket.tType}}
@@ -27,15 +32,15 @@
         {{/select}}
       </select>
     </div>
-    <div class="form-group">
+    <div hidden class="form-group">
       <label for="description">Describe the bug </label>
       <textarea class="form-control" id="description" name="description" rows="3" disabled="">{{ticket.description}}</textarea>
     </div>
-    <div class="form-group">
+    <div hidden class="form-group">
       <label hidden for="created_by">Created By</label>
       <input hidden type="created_by" id="created_by" name="created_by" class="form-control" value="{{user.name}}"/>
     </div>
-    <div class="form-group">
+    <div hidden class="form-group">
       <label for="assignTo">Assign to developer</label>
       <select class="form-control" id="assignedTo" name="assignedTo" value="{{ticket.assignedTo}}" disabled="">
         {{#select ticket.assignedTo}}
@@ -47,7 +52,7 @@
         {{/select}}
       </select>
     </div>
-    <div class="form-group">
+    <div hidden class="form-group">
       <label for="priority">Priority</label>
       <select class="form-control" id="priority" name="priority" disabled="">
         {{#select ticket.priority}}
@@ -57,11 +62,6 @@
         {{/select}}
       </select>
     </div>
-    <div class="row">
-        <div class="col">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="/dashboard" class="btn">Cancel</a>
-        </div>
-    </div>
+   
   </fieldset>
 </form>

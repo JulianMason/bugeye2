@@ -5,7 +5,7 @@ module.exports = {
     formatDate: function(date, format) {
         return moment(date).format(format)
     },
-    ifEquals: function(arg1, arg2, options) {
+    ifEquals: function(arg1, arg2, options) { // Handlebars If equals logic 
         return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
     },
     eq: function( a, b ){
