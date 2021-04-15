@@ -8,7 +8,38 @@
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <title>Bugeye App</title>
     <br>
-    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a href="/"></a><h5><i class="fas fa-bug navbar-brand"></i style="color: white"></h5></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="/">Dashboard
+            {{!-- <span class="sr-only">(current)</span> --}}
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/tickets/add">Report Bug</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/open">Open Tickets</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/resolved">Resolved Tickets</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/closed">Closed Tickets</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/auth/logout">Logout</a>
+        </li>
+        </ul>
+    </div>
+    </nav>
+    {{!-- <div class="container">
         <a href="/"></a><h1><i class="fas fa-bug"></i>Bugeye</h1></a>
         <hr>
         <ul class="nav nav-pills">
@@ -31,8 +62,8 @@
             <a class="nav-link active btn btn-outline-primary" href="/auth/logout">LOGOUT</a>
         </li>
         </ul>
-    </div>
-    <hr>
+    </div> --}}
+    <br>
 </head>
 <body>
    <div class="container">

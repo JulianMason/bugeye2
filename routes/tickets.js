@@ -55,6 +55,7 @@ router.get('/delete/:id', ensureAuth, async (req, res) => {
     }
 })
 
+// Show ticket EJS
 router.get('/:id', ensureAuth, async (req, res) => {
     const comment = await Comment.find({}).lean();
     const user = await User.findOne({}, { name: 1, userType: 1, _id: 0 }).lean();
@@ -64,7 +65,7 @@ router.get('/:id', ensureAuth, async (req, res) => {
     if(!ticket) {
         return res.render('../views/error/400.hbs');
     } else {
-        res.render('../views/tickets/ticket.hbs', {
+        res.render('../views/tickets/ticket.ejs', {
             ticket,
             comment,
             user,
@@ -72,6 +73,25 @@ router.get('/:id', ensureAuth, async (req, res) => {
         });
     }
 })
+
+// // Show ticket HBS
+// router.get('/:id', ensureAuth, async (req, res) => {
+//     const comment = await Comment.find({}).lean();
+//     const user = await User.findOne({}, { name: 1, userType: 1, _id: 0 }).lean();
+//     const ticket = await Ticket.findOne({
+//         _id: req.params.id
+//     }).lean();
+//     if(!ticket) {
+//         return res.render('../views/error/400.hbs');
+//     } else {
+//         res.render('../views/tickets/ticket.hbs', {
+//             ticket,
+//             comment,
+//             user,
+//             userType: req.user.userType
+//         });
+//     }
+// })
 
 // Post ticket
 router.post('/', ensureAuth, async (req, res) => {

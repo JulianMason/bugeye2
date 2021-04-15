@@ -44,12 +44,13 @@ if(process.env.NODE_ENV === 'development') {
 }
 
 // Handlebars helpers
-const { formatDate, ifEquals, select } = require('./helpers/hbs');
+const { formatDate, ifEquals, eq, select } = require('./helpers/hbs');
 
 // Handlebars
 app.engine('.hbs', exphbs({ helpers: {
     formatDate,
     ifEquals,
+    eq,
     select
     },
     handlebars: allowInsecurePrototypeAccess(Handlebars),

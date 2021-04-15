@@ -64,22 +64,20 @@
 {{!-- Comments --}}
 <div class="card border-primary mb-3" style="">
     <div class="card-header"><h3>COMMENTS</h3></div>
-    {{!-- console.log({{ticket._id}})
-    console.log({{comment.ticket_id}}) --}}
-    {{!-- {{#eq ticket._id comment.ticket_id}} --}}
     ticket model: console.log({{ticket._id}})
+    comment model: console.log({{comment.ticket_id}})
     {{#each comment}}
     comment model: console.log({{ticket_id}})
-    {{!-- {{#eq ticket._id ticket_id}} --}}
-    console.log(loop: {{ticket_id}})
+        {{#eq ticket._id ticket_id}}
+
     
-  <div class="card-body">
-    <h4 class="card-title">{{created_by}}</h4><h6> on {{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</h6>
-    <br>
-    <p class="card-text">{{comment}}</p>
-    <hr>
-  </div>
-  {{!-- {{/eq}} --}}
+            <div class="card-body">
+                <h4 class="card-title">{{created_by}}</h4><h6> on {{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</h6>
+                <br>
+                <p class="card-text">{{comment}}</p>
+                <hr>
+            </div>
+        {{/eq}}
   {{/each}}
   <div class="card-body">
     <form action="/tickets/post_comment" method="POST">

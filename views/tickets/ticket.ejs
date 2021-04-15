@@ -1,0 +1,143 @@
+<br>
+<head>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="/"></a><h5><i class="fas fa-bug navbar-brand"></i style="color: white"></h5></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Dashboard
+                <!-- {{!-- <span class="sr-only">(current)</span> --}} -->
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/tickets/add">Report Bug</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/open">Open Tickets</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/resolved">Resolved Tickets</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/closed">Closed Tickets</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/auth/logout">Logout</a>
+            </li>
+            </ul>
+        </div>
+        </nav>
+</head>
+<br>
+<br>
+<br>
+
+<% if (userType=="Admin") { %>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"><%=ticket.title%></h4><h6 class="card-title"><%=ticket.priority%> Priority</h6>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <h6 class="card-subtitle mb-2 text-muted">Status: <a class="card-subtitle mb-2"> <%=ticket.status%></a></h6>
+                </div>
+                <div class="col">
+                    <h6 class="card-subtitle mb-2 text-muted">Change Status <a href="/tickets/update/<%=ticket._id%>"> Here</a></h6>
+                </div>
+                <div class="col">
+                    <h6 class="card-subtitle mb-2 text-muted"><a href="/tickets/delete/<%=ticket._id%>">DELETE TICKET</a></h6>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <h6 class="card-subtitle mb-2 text-muted">Reported by: <h6 class="card-subtitle mb-2"><%=ticket.created_by%></h6></h6>
+                </div>
+                <div class="col">
+                    <h6 class="card-subtitle mb-2 text-muted">Assigned to: <h6 class="card-subtitle mb-2"><%=ticket.assignedTo%></h6></h6>
+                </div>
+                <div class="col">
+
+                </div>
+            </div>
+            <br>
+            <h6 class="card-subtitle mb-2 text-muted">Description:</h6>
+            <p class="card-text"><%=ticket.description%></p>
+            
+        </div>
+    </div>
+<% } else { %>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"><%=ticket.title%></h4><h6 class="card-title"><%=ticket.priority%> Priority</h6>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <h6 class="card-subtitle mb-2 text-muted">Assigned to: <h6 class="card-subtitle mb-2"><%=ticket.assignedTo%></h6></h6>
+                </div>
+                <div class="col">
+                    <h6 class="card-subtitle mb-2 text-muted">Status:</h6><h6 class="card-subtitle mb-2 text-mute"><%=ticket.status%></h6>
+                </div>
+            </div>
+            <br>
+            
+            <br>
+            <h6 class="card-subtitle mb-2 text-muted">Description:</h6>
+            <p class="card-text"><%=ticket.description%></p>
+            
+            
+        </div>
+    </div>
+<% } %>
+<br>
+<br>
+<br>
+
+<div class="card border-primary mb-3" style="">
+    <div class="card-header"><h3>COMMENTS</h3></div>
+    <!-- ticket model: console.log({{ticket._id}})
+    comment model: console.log({{comment.ticket_id}}) -->
+    <%comment.forEach(comment=> { %>
+        <% if (ticket._id==comment.ticket_id) { %>
+            <div class="card-body">
+                <h4 class="card-title"><%=comment.created_by%></h4><h6> <%=comment.createdAt.toLocaleString()%></h6>
+                <br>
+                <p class="card-text"><%=comment.comment%></p>
+                <hr>
+            </div>
+       <% } %>
+
+    <% }); %>
+
+  <div class="card-body">
+    <form action="/tickets/post_comment" method="POST">
+  <fieldset>
+    <legend>Add Comment</legend>
+    <div class="form-group">
+      <label for="comment">Your comment</label>
+      <textarea class="form-control" id="comment" name="comment" rows="1"></textarea>
+    </div>
+    <div class="form-group">
+        <label hidden for="created_by">Created By</label>
+        <input hidden type="created_by" id="created_by" name="created_by" class="form-control" value="<%=user.name%>" />
+    </div>
+    <div class="form-group">
+        <label hidden for="ticket_id">Ticket ID</label>
+        <input hidden type="ticket_id" id="ticket_id" name="ticket_id" class="form-control" value="<%=ticket._id%>"/>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Post comment</button>
+            <a href="/dashboard" class="btn">Cancel</a>
+        </div>
+    </div>
+  </fieldset>
+    </form>
+  </div>
+  
+</div>
