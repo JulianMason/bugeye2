@@ -17,8 +17,16 @@ router.get('/add', ensureAuth, async (req, res) => {
     console.log(user.name)
 })
 
+// Check Role Function
+const checkUserType = (roles) => (req, res, next) => {
+    if (roles.includes(req.user.userType)) {
+        return next();
+    }
+    res.redirect('back');
+};
+
 // Update status
-router.get('/update/:id', ensureAuth, async (req, res) => {
+router.get('/update/:id', ensureAuth, checkUserType(["Admin"]), async (req, res) => {
     const user = await User.findOne({}, { name: 1, _id: 0 }).lean();
     const ticket = await Ticket.findOne({ _id: req.params.id }).lean();
     res.render('tickets/update.hbs', {
@@ -29,8 +37,10 @@ router.get('/update/:id', ensureAuth, async (req, res) => {
 })
 
 // Post updated ticket
-router.post('/update/:id', ensureAuth, async (req, res) => {
+router.post('/update/:id', ensureAuth, checkUserType(["Admin"]), async (req, res) => {
     try {
+        req.params.id = DOMPurify.sanitize(req.params.id)
+        req.body = DOMPurify.sanitize(req.body)
         let ticket = await Ticket.findById(req.params.id);
 
         ticket = await Ticket.findOneAndUpdate({ _id: req.params.id }, req.body, {
@@ -43,7 +53,7 @@ router.post('/update/:id', ensureAuth, async (req, res) => {
 })
 
 // Delete ticket
-router.get('/delete/:id', ensureAuth, async (req, res) => {
+router.get('/delete/:id', ensureAuth, checkUserType(["Admin"]), async (req, res) => {
     console.log('Deleting Ticket')
 
     try {
@@ -74,29 +84,11 @@ router.get('/:id', ensureAuth, async (req, res) => {
     }
 })
 
-// // Show ticket HBS
-// router.get('/:id', ensureAuth, async (req, res) => {
-//     const comment = await Comment.find({}).lean();
-//     const user = await User.findOne({}, { name: 1, userType: 1, _id: 0 }).lean();
-//     const ticket = await Ticket.findOne({
-//         _id: req.params.id
-//     }).lean();
-//     if(!ticket) {
-//         return res.render('../views/error/400.hbs');
-//     } else {
-//         res.render('../views/tickets/ticket.hbs', {
-//             ticket,
-//             comment,
-//             user,
-//             userType: req.user.userType
-//         });
-//     }
-// })
-
 // Post ticket
 router.post('/', ensureAuth, async (req, res) => {
     try {
         req.body.user = DOMPurify.sanitize(req.body.user);
+        req.user.id = DOMPurify.sanitize(req.user.id);
         req.body.user = req.user.id
         await Ticket.create(req.body)
         res.redirect('/dashboard')
@@ -110,6 +102,7 @@ router.post('/', ensureAuth, async (req, res) => {
 router.post('/post_comment', ensureAuth, async (req, res) => {
     try {
         req.body.user = DOMPurify.sanitize(req.body.user);
+        req.user.id = DOMPurify.sanitize(req.user.id);
         req.body.user = req.user.id
         await Comment.create(req.body)
         res.redirect('back')
