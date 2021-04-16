@@ -15,14 +15,16 @@ const passport = require('passport');
 const mongoSanitize = require('express-mongo-sanitize');
 const path = require('path');
 const bodyParser = require("body-parser")
+// const helmet = require('helmet')
 
 
 const app = express();
 
-// Sanitize mongo scripts by replacing prohibited characters with '_'
-app.use(mongoSanitize({
-    replaceWith: '_'
-}));
+// // Helmet
+// app.use(helmet());
+
+// Sanitize mongo scripts
+app.use(mongoSanitize());
 
 // Load config
 dotenv.config();
@@ -68,13 +70,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // Express Session
+app.set('trust proxy', 1) // Trusts the first proxy
 app.use(session({
-    secret: 'secret',
+    secret: 's3Cur3',
+    name: 'sessionId',
     receive: true,
     resave: false,
     saveUninitialized: true,
     cookie : {
-        maxAge:(3000000) // 5 minutes - maxAge works in milliseconds (1,000 = 1 second)
+        maxAge:(60 * 1000 * 30) // 30 minutes - maxAge works in milliseconds (1,000 = 1 second)
 } 
 }));
 

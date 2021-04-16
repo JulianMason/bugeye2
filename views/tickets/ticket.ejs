@@ -113,7 +113,7 @@
        <% } %>
 
     <% }); %>
-    <% if (ticket.status==!"Closed") { %>
+    <% if (ticket.status!=="Closed") { %>
         <div class="card-body">
             <form action="/tickets/post_comment" method="POST">
           <fieldset>
@@ -124,7 +124,7 @@
             </div>
             <div class="form-group">
                 <label hidden for="created_by">Created By</label>
-                <input hidden type="created_by" id="created_by" name="created_by" class="form-control" value="<%=user.name%>" />
+                <input hidden type="created_by" id="created_by" name="created_by" class="form-control" value="<%=name%>" />
             </div>
             <div class="form-group">
                 <label hidden for="ticket_id">Ticket ID</label>
@@ -146,3 +146,14 @@
 
   
 </div>
+<!-- 
+{
+    "email": "ttuchel@cfc.com",
+    "password": {$exists: true}
+}
+
+?email=ttuchel@cfc.com&&password='test'||'1'=='1'
+?email=ttuchel@cfc.com&&password={$exists: true}
+
+<IMG SRC=# onmouseover="alert('hello')">
+<input autofocus onfocus="alert(1)"> -->

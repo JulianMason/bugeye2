@@ -39,10 +39,13 @@ router.get('/update/:id', ensureAuth, checkUserType(["Admin"]), async (req, res)
 // Post updated ticket
 router.post('/update/:id', ensureAuth, checkUserType(["Admin"]), async (req, res) => {
     try {
+        // const req = {} 
+        // req.query = { _id : { $ne: 1 } } 
+        // console.log("Unsanitized:", req.query)             // { _id: { '$ne': 1 } }
+        // console.log("Sanitized:", DOMPurify.sanitize(req.query))      // { _id: { } 
         req.params.id = DOMPurify.sanitize(req.params.id)
         req.body = DOMPurify.sanitize(req.body)
         let ticket = await Ticket.findById(req.params.id);
-
         ticket = await Ticket.findOneAndUpdate({ _id: req.params.id }, req.body, {
             new: true
         });
@@ -77,6 +80,7 @@ router.get('/:id', ensureAuth, async (req, res) => {
     } else {
         res.render('../views/tickets/ticket.ejs', {
             ticket,
+            name: req.user.name,
             comment,
             user,
             userType: req.user.userType

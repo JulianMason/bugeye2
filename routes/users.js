@@ -34,7 +34,7 @@ router.post('/register', (req, res) => {
     
 
     // Check required fields
-    if(!name || !email || !password || !password2 || !userType || !tel){
+    if(!name || !email || !password || !password2 || !userType){
         errors.push({ msg: 'Please fill in all fields'})
     }
 
